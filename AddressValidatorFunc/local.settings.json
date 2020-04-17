@@ -1,0 +1,11 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "SqlConnectionString": "Server=(localdb)\\mssqllocaldb;Database=Addresses;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+  "Host": {
+    "CORS": "*"
+  }
+}

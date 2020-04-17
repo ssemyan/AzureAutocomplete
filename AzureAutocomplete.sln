@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureAutocomplete", "AzureAutocomplete.csproj", "{604B784B-B7FC-4CEE-90DE-9726E412700B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureAutocomplete", "AddressValidatorWeb\AzureAutocomplete.csproj", "{604B784B-B7FC-4CEE-90DE-9726E412700B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressValidatorFunc", "AddressValidatorFunc\AddressValidatorFunc.csproj", "{B4E487ED-FB23-4214-9393-2657F5610A87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{604B784B-B7FC-4CEE-90DE-9726E412700B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{604B784B-B7FC-4CEE-90DE-9726E412700B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{604B784B-B7FC-4CEE-90DE-9726E412700B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4E487ED-FB23-4214-9393-2657F5610A87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4E487ED-FB23-4214-9393-2657F5610A87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4E487ED-FB23-4214-9393-2657F5610A87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4E487ED-FB23-4214-9393-2657F5610A87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
