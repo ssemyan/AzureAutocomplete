@@ -1,35 +1,53 @@
-using System;
-using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+using System.Collections.Generic;
+using System;
+using Microsoft.Azure.Documents.Linq;
+using Microsoft.Azure.Cosmos;
+using System.Linq;
 
 namespace AddressValidatorFunc
 {
-    public static class CosmosDbFunction
+    public class CosmosDbFunction
     {
-        [FunctionName("CosmosDbFunction")]
-        public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-            ILogger log)
+        private readonly Container _container;
+        public CosmosDbFunction(CosmosClient cosmosClient)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            _container = cosmosClient.GetContainer("StreetAddressDb", "StreetAddress");
+        }
 
-            string name = req.Query["name"];
+        [FunctionName("CosmosDbFunction")]
+        public async Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "AddressValidator/csql/{searchTerm}")] HttpRequest req,
+            string searchTerm, ILogger log)
+        {
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                return new NotFoundObjectResult("Query parameter 'add' required.");
+            }
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+            log.LogInformation("Processing request for search term: " + searchTerm);
 
-            string responseMessage = string.IsNullOrEmpty(name)
-                ? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-                : $"Hello, {name}. This HTTP triggered function executed successfully.";
+            List<Address> addresses = new List<Address>();
+            QueryDefinition query = new QueryDefinition("SELECT TOP 5 a.address FROM StreetAddress a WHERE STARTSWITH(a.address, @searchTerm)").WithParameter("@searchTerm", searchTerm);
+            FeedIterator<Address> resultSetIterator = _container.GetItemQueryIterator<Address>(query);
 
-            return new OkObjectResult(responseMessage);
+            while (resultSetIterator.HasMoreResults)
+            {
+                FeedResponse<Address> response = await resultSetIterator.ReadNextAsync();
+                addresses.AddRange(response);
+            }
+
+            return new OkObjectResult(addresses.Select(a => a.address).ToArray());
+        }
+
+        public class Address
+        {
+            public string address { get; set; }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace AddressValidatorFunc
         {
             if (string.IsNullOrEmpty(searchTerm))
             {
-                return new BadRequestObjectResult("Query parameter 'add' required.");
+                return new NotFoundObjectResult("Query parameter 'add' required.");
             }
 
             log.LogInformation("Processing request for search term: " + searchTerm);

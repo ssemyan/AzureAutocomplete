@@ -3,7 +3,8 @@
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-    "SqlConnectionString": "Server=(localdb)\\mssqllocaldb;Database=Addresses;Trusted_Connection=True;MultipleActiveResultSets=true"
+    "SqlConnectionString": "Server=(localdb)\\mssqllocaldb;Database=Addresses;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "CosmosSqlConnectionString": "AccountEndpoint=https://localhost:8081/;AccountKey=C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw=="
   },
   "Host": {
     "CORS": "*"
