@@ -5,8 +5,6 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
-using System;
-using Microsoft.Azure.Documents.Linq;
 using Microsoft.Azure.Cosmos;
 using System.Linq;
 
